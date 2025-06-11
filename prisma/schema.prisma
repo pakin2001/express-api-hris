@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model PerProfile {
+  perId          Int       @id @default(autoincrement()) //รหัสผู้ใช้
+  perEmpNumber   String? // เลขประจำตัวบุคลากร
+  perEmpCode     String? // ชื่อย่อพนักงาน
+  perIdCardNo    String? // หมายเลขบัตรประชาชน
+  posId          Int? // ตำแหน่ง
+  posLevelId     Int? // ระดับตำแหน่ง
+  departmentId   Int? // แผนก
+  prefixId       Int? // คำนำหน้าชื่อ
+  perFnameTh     String? // ชื่อไทย
+  perMnameTh     String? // ชื่อกลางไทย
+  perLnameTh     String? // นามสกุลไทย
+  perFnameEn     String? // ชื่ออังกฤษ
+  perMnameEn     String? // ชื่อกลางอังกฤษ
+  perLnameEn     String? // นามสกุลอังกฤษ
+  perBirthDate   DateTime? // วันเกิด
+  genderId       Int? // เพศ
+  perTypeId      Int? // ประเภทบุคลากร
+  perStatusId    Int? // สถานะบุคลากรจาก
+  raceId         Int? // เชื้อชาติ
+  nationId       Int? // สัญชาติ
+  religionId     Int? // ศาสนา
+  perStartDate   DateTime? // วันที่เริ่มงาน
+  perEndDate     DateTime? // วันที่สิ้นสุดงาน
+  perMobilePhone String? // หมายเลขโทรศัพท์
+  teamId         Int? // ทีม
+  email          String?
+  line           String?
+
+  createDate DateTime?
+  updateDate DateTime?
+  createBy   Int?
+  updateBy   Int?
+  isActive   Boolean?
+  deletedAt  DateTime?
+
+  /////////relation
+  position     mPosition? @relation(fields: [posId], references: [posId])
+
+  @@map("PER_PROFILE")
+}
+
+model mPosition {
+
+  posId          Int @id @default(autoincrement()) //ตำแหน่ง
+  posTh          String? // ตำแหน่ง Th
+  posEn          String? // ตำแหน่ง En
+
+  createDate DateTime?
+  updateDate DateTime?
+  createBy   Int?
+  updateBy   Int?
+  isActive   Boolean?
+  deletedAt  DateTime?
+
+  /////////relation
+  perProfiles  PerProfile[]
+
+  @@map("M_POSITION")
+
+}

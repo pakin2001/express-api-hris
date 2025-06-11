@@ -1,0 +1,17 @@
+-- CreateTable
+CREATE TABLE `M_POSITION` (
+    `posId` INTEGER NOT NULL AUTO_INCREMENT,
+    `posTh` VARCHAR(191) NULL,
+    `posEn` VARCHAR(191) NULL,
+    `createDate` DATETIME(3) NULL,
+    `updateDate` DATETIME(3) NULL,
+    `createBy` INTEGER NULL,
+    `updateBy` INTEGER NULL,
+    `isActive` BOOLEAN NULL,
+    `deletedAt` DATETIME(3) NULL,
+
+    PRIMARY KEY (`posId`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `PER_PROFILE` ADD CONSTRAINT `PER_PROFILE_posId_fkey` FOREIGN KEY (`posId`) REFERENCES `M_POSITION`(`posId`) ON DELETE SET NULL ON UPDATE CASCADE;
