@@ -36,11 +36,11 @@ model PerProfile {
   email          String?
   line           String?
 
-  createDate DateTime?
-  updateDate DateTime?
+  createDate DateTime? @default(now())
+  updateDate DateTime? @default(now())
   createBy   Int?
   updateBy   Int?
-  isActive   Boolean?
+  isActive   Boolean? 
   deletedAt  DateTime?
 
   /////////relation
@@ -55,16 +55,33 @@ model mPosition {
   posTh          String? // ตำแหน่ง Th
   posEn          String? // ตำแหน่ง En
 
-  createDate DateTime?
-  updateDate DateTime?
+  createDate DateTime? @default(now())
+  updateDate DateTime? @default(now())
   createBy   Int?
   updateBy   Int?
-  isActive   Boolean?
+  isActive   Boolean? @default(true)
   deletedAt  DateTime?
 
   /////////relation
   perProfiles  PerProfile[]
 
   @@map("M_POSITION")
+}
 
+model mPositionLevel {
+
+  posLevelId          Int @id @default(autoincrement()) //ระดับตำแหน่ง
+  posLevelTh          String? // ระดับตำแหน่ง Th
+  posLevelEn          String? // ระดับตำแหน่ง En
+
+  createDate DateTime? @default(now())
+  updateDate DateTime? @default(now())
+  createBy   Int?
+  updateBy   Int?
+  isActive   Boolean? @default(true)
+  deletedAt  DateTime?
+
+  /////////relation
+
+  @@map("M_POSITION_LEVEL")
 }
