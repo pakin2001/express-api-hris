@@ -1,22 +1,22 @@
 import prisma from '../config/prisma';
 import { filterDataTable } from '../utils/functionCustom';
-import { schema } from "../schemas/mPosition.schema";
+import { schema } from "../schemas/mPositionLevel.schema";
 import { handlePrismaError } from '../middlewares/error.function';
 import { z } from 'zod';
-type position = z.infer<typeof schema>;
+type mPositionLevel = z.infer<typeof schema>;
 
-    export const createData = async (body: position) => {
-        const newData = await prisma.mPosition.create({
+    export const createData = async (body: mPositionLevel) => {
+        const newData = await prisma.mPositionLevel.create({
             data: body,
         });
         return newData;
     };
 
-    export const updateData = async (body: position, id: number) => {
+    export const updateData = async (body: mPositionLevel, id: number) => {
         try {
-            const updated = await prisma.mPosition.update({
+            const updated = await prisma.mPositionLevel.update({
                 where: {
-                    posId: Number(id)
+                    posLevelId: Number(id)
                 },
                 data: body,
             });
@@ -27,7 +27,7 @@ type position = z.infer<typeof schema>;
     };
 
     export const findAllData = async () => {
-        const data = await prisma.mPosition.findMany({
+        const data = await prisma.mPositionLevel.findMany({
             where: {
                 deletedAt: null
             }
@@ -36,8 +36,8 @@ type position = z.infer<typeof schema>;
     };
 
     export const findOneData = async (id: number) => {
-      const data = await prisma.mPosition.findUnique({
-        where: { posId: id , deletedAt: null}
+      const data = await prisma.mPositionLevel.findUnique({
+        where: { posLevelId: id , deletedAt: null}
       });
 
       if(!data){
@@ -48,8 +48,8 @@ type position = z.infer<typeof schema>;
     };
 
     export const deleteData = async (id:number) => {
-      await prisma.mPosition.update({
-        where: { posId: Number(id) },
+      await prisma.mPositionLevel.update({
+        where: { posLevelId: Number(id) },
           data: { deletedAt: new Date() }
       });
 
@@ -91,3 +91,5 @@ type position = z.infer<typeof schema>;
           totalPages: Math.ceil(total / perPage),
         });
     };
+
+
