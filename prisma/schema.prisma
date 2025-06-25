@@ -46,7 +46,29 @@ model PerProfile {
   /////////relation
   position     mPosition? @relation(fields: [posId], references: [posId])
 
+  usrMain  usrMain[]
+
   @@map("PER_PROFILE")
+}
+
+model usrMain {
+  usrId          Int       @id @default(autoincrement()) //รหัสผู้ใช้
+  usrName        String    @unique // ชื่อผู้ใช้
+  passwordHash   String    @unique // รหัสผ่าน
+  perId          Int?      // รหัสผู้ใช้ 
+  role           Int?      // ระดับตำแหน่ง
+
+  createDate DateTime? @default(now())
+  updateDate DateTime? @default(now())
+  createBy   Int?
+  updateBy   Int?
+  isActive   Boolean? 
+  deletedAt  DateTime?
+
+  /////////relation
+  per   PerProfile? @relation(fields: [perId], references: [perId])
+
+  @@map("USR_MAIN")
 }
 
 model mPosition {
