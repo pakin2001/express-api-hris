@@ -40,7 +40,7 @@ model PerProfile {
   updateDate DateTime? @default(now())
   createBy   Int?
   updateBy   Int?
-  isActive   Boolean? 
+  isActive   Boolean?  @default(true)
   deletedAt  DateTime?
 
   /////////relation
@@ -54,15 +54,15 @@ model PerProfile {
 model usrMain {
   usrId          Int       @id @default(autoincrement()) //รหัสผู้ใช้
   usrName        String    @unique // ชื่อผู้ใช้
-  passwordHash   String    @unique // รหัสผ่าน
+  password       String    @unique // รหัสผ่าน
   perId          Int?      // รหัสผู้ใช้ 
-  role           Int?      // ระดับตำแหน่ง
+  roleId         Int?      // 
 
   createDate DateTime? @default(now())
   updateDate DateTime? @default(now())
   createBy   Int?
   updateBy   Int?
-  isActive   Boolean? 
+  isActive   Boolean? @default(true)
   deletedAt  DateTime?
 
   /////////relation
