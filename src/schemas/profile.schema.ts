@@ -4,8 +4,6 @@ export const schema = z.object({
   perEmpNumber :z.string().optional(), // เลขประจำตัวบุคลากร
   perEmpCode   :z.string().optional(), // ชื่อย่อพนักงาน
   perIdCardNo  :z.string().optional(), // หมายเลขบัตรประชาชน
-  posId        :z.number().optional(), // ตำแหน่ง
-  posLevelId   :z.number().optional(), // ระดับตำแหน่ง
   departmentId :z.number().optional(), // แผนก
   prefixId     :z.number().optional(), // คำนำหน้าชื่อ
   perFnameTh   :z.string().optional(), // ชื่อไทย
