@@ -12,8 +12,6 @@ model PerProfile {
   perEmpNumber   String? // เลขประจำตัวบุคลากร
   perEmpCode     String? // ชื่อย่อพนักงาน
   perIdCardNo    String? // หมายเลขบัตรประชาชน
-  posId          Int? // ตำแหน่ง
-  posLevelId     Int? // ระดับตำแหน่ง
   departmentId   Int? // แผนก
   prefixId       Int? // คำนำหน้าชื่อ
   perFnameTh     String? // ชื่อไทย
@@ -44,9 +42,9 @@ model PerProfile {
   deletedAt  DateTime?
 
   /////////relation
-  position     mPosition? @relation(fields: [posId], references: [posId])
 
   usrMain  usrMain[]
+  manpower  manpower[]
 
   @@map("PER_PROFILE")
 }
@@ -85,7 +83,7 @@ model mPosition {
   deletedAt  DateTime?
 
   /////////relation
-  perProfiles  PerProfile[]
+  manpower  manpower[]
 
   @@map("M_POSITION")
 }
@@ -104,6 +102,30 @@ model mPositionLevel {
   deletedAt  DateTime?
 
   /////////relation
+  manpower  manpower[]
 
   @@map("M_POSITION_LEVEL")
+}
+
+model manpower {
+  manpowerId         Int       @id @default(autoincrement()) //รหัสอัตรากําลัง
+  manpowerNumber     String    @unique // เลขประจำตำแหน่ง
+  perId              Int?      // รหัสผู้ใช้
+  posId              Int?      // รหัสตำแหน่ง
+  posLevelId         Int?      // รหัสระดับตำแหน่ง
+  positionAllowance  Float?    // เงินประจำตำแหน่ง
+
+  createDate DateTime? @default(now())
+  updateDate DateTime? @default(now())
+  createBy   Int?
+  updateBy   Int?
+  isActive   Boolean? @default(true)
+  deletedAt  DateTime?
+
+  /////////relation
+  per   PerProfile? @relation(fields: [perId], references: [perId])
+  pos   mPosition? @relation(fields: [posId], references: [posId])
+  posLevel   mPositionLevel? @relation(fields: [posLevelId], references: [posLevelId])
+
+  @@map("MANPOWER")
 }
